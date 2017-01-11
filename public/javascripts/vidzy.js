@@ -6,7 +6,8 @@ app.config(['$routeProvider', function ($routeProvider) {
                     controller: 'HomeCtrl'
                 })
                 .when('/add-video', {
-                    templateUrl: 'partials/video-form.html'
+                    templateUrl: 'partials/video-form.html',
+                    controller: 'AddVideoCtrl'
                 })
                 .otherwise({
                     redirectTo: '/'
@@ -19,4 +20,15 @@ app.controller('HomeCtrl', ['$scope', '$resource',
         Videos.query(function (videos) {
             $scope.videos = videos;
         });
+    }]);
+
+// add video
+app.controller('AddVideoCtrl', ['$scope', '$resource', '$location',
+    function($scope, $resource, $location){
+        $scope.save = function(){
+            var Videos = $resource('/api/videos');
+            Videos.save($scope.video, function(){
+                $location.path('/');
+            });
+        };
     }]);
