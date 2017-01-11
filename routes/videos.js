@@ -26,4 +26,32 @@ router.post('/', function(req, res){
         res.json(video);
     });
 });
+
+// get a particular record based on the ID
+router.get('/:id', function(req, res) {
+    var collection = db.get('videos');
+    collection.findOne({ _id: req.params.id }, function(err, video){
+        if (err) throw err;
+
+        res.json(video);
+    });
+});
+
+// edit
+router.put('/:id', function(req, res){
+    var collection = db.get('videos');
+    collection.update({
+        _id: req.params.id
+    },
+    {
+        title: req.body.title,
+        genre:req.body.genre,
+        description: req.body.description
+    }, function(err, video){
+        if (err) throw err;
+
+        res.json(video);
+    });
+});
+
 module.exports = router;
