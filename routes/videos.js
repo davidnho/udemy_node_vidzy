@@ -13,4 +13,16 @@ router.get('/', function(req, res) {
     });
 });
 
+// add videos
+router.post('/', function(req, res){
+    var collection = db.get('videos');
+    collection.insert({
+        title: req.body.title,
+        description: req.body.description
+    }, function(err, video){
+        if (err) throw err;
+
+        res.json(video);
+    });
+})
 module.exports = router;
