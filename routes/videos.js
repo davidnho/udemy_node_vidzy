@@ -24,5 +24,5 @@ router.post('/', function(req, res){
 
         res.json(video);
     });
-})
+});
 module.exports = router;
